@@ -5,6 +5,7 @@ const orderItemValidationSchema = z.object({
   product: z.string(),
   quantity: z.number(),
   price: z.number(),
+  name: z.string(),
 });
 
 const orderValidationSchema = z.object({
@@ -17,6 +18,7 @@ const orderValidationSchema = z.object({
     shippingStatus: z.enum([...shippingStatus] as [string, ...string[]]).optional(),
     paymentStatus: z.enum([...paymentStatus] as [string, ...string[]]).optional(),
     transactionId: z.string().optional(),
+    shippingCost: z.number().optional(),
     isDeleted: z.boolean().optional(),
   }),
 });

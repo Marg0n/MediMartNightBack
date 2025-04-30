@@ -7,7 +7,8 @@ export type TPaymentStatus = typeof paymentStatus[number]
 export type TOrderedItem = {
     product: Types.ObjectId,
     quantity: number, 
-    price: number
+    price: number,
+    name: string
 }
  
 export type TOrder = {
@@ -20,6 +21,7 @@ export type TOrder = {
     isDeleted?: boolean;
     city?: string;
     shippingAddress?: string;
+    shippingCost?: number;
     prescriptionUrl?: string;
     createdAt?: Date;
     updatedAt?: Date;

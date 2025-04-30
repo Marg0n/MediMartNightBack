@@ -4,6 +4,7 @@ import { TOrder, TOrderedItem } from "./order.interface";
 
 const orderItemSchema = new Schema<TOrderedItem>({
     product: { type: Schema.Types.ObjectId, ref: 'Medicine', required: [true, 'Product is required'] },
+    name: { type: String, required: [true, 'Product name is required'] },
     quantity: {
         type: Number, required: [true, 'Quantity is required'],
         min: [1, 'Quantity must be at least 1']
@@ -32,6 +33,7 @@ const orderSchema = new Schema<TOrder>({
         enum: paymentStatus,
         default: 'UNPAID'
     },
+    shippingCost: { type: Number, required: true },
     transactionId: String,
     prescriptionUrl:String,
     isDeleted: { type: Boolean, default: false },    
