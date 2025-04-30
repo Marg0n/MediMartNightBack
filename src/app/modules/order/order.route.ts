@@ -8,14 +8,31 @@ import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.post('/create-order',  auth( USER_ROLE.admin,USER_ROLE.customer),
+router.post(
+  '/create-order',
+  auth(USER_ROLE.admin, USER_ROLE.customer),
   upload.single('file'),
   (req: Request, res: Response, next: NextFunction) => {
-    req.body = JSON.parse(req.body.data);
-    next();
-  }, validateRequest(OrderValidation.orderValidationSchema), OrderControllers.createOrder)
+    try {
+      if (req.body?.data) {
+        req.body = JSON.parse(req.body.data);
+      }
+      next();
+    } catch (err) {
+      next(new Error('Invalid JSON in "data" field.'));
+    }
+  },
+  validateRequest(OrderValidation.orderValidationSchema),
+  OrderControllers.createOrder
+);
 
 router.get('/', OrderControllers.getAllOrder);
+
+router.get(
+  '/:id',
+  OrderControllers.getOrderByUserId
+);
+
 router.patch(
   '/:id',
   validateRequest(OrderValidation.updateOrderValidationSchema),

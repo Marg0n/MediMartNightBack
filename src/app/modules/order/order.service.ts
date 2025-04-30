@@ -40,9 +40,9 @@ const createOrderIntoDB = async (payload: TOrder) => {
       total_amount: payload.totalPrice,
       currency: 'BDT',
       tran_id: transactionId,
-      success_url: `${process.env.API_BASE_URL}/api/orders/success/${transactionId}`,
-      fail_url: `${process.env.API_BASE_URL}/api/orders/fail/${transactionId}`,
-      cancel_url: `${process.env.API_BASE_URL}/api/orders/cancel/${transactionId}`,
+      success_url: `${config.api_base_url}/api/orders/success/${transactionId}`,
+      fail_url: `${config.api_base_url}/api/orders/fail/${transactionId}`,
+      cancel_url: `${config.api_base_url}/api/orders/cancel/${transactionId}`,
       shipping_method: 'NO',
       product_name: product.name,
       product_category: 'Physical Goods',
@@ -172,6 +172,11 @@ const getAllOrdersFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
+const getOrdersByUserIdFromDB = async (userId: string) => {
+  const result = await Order.find({ user: userId, isDeleted: false });
+  return result;
+};
+
 const updateOrderIntoDB = async (id: string, payload: Partial<TOrder>) => {
   const shippingStatus = payload.shippingStatus;
   const result = await Order.findByIdAndUpdate(
@@ -229,4 +234,5 @@ export const OrderService = {
   successOrderIntoDB,
   failOrderIntoDB,
   updateOrderPrescription,
+  getOrdersByUserIdFromDB,
 };

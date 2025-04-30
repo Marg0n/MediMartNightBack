@@ -14,7 +14,7 @@ const createOrder = catchAsync(async (req, res) => {
   sendResponse.sendCreateDataResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Order is created succesfully',
+    message: 'Order is created successfully',
     data: result,
   });
 });
@@ -28,7 +28,8 @@ const successOrder = catchAsync(async (req, res) => {
   }
   return res.redirect(`${config.frontendBaseUrl}/successfull-order`);
 });
-// fail order
+
+//* fail order
 const failOrder = catchAsync(async (req, res) => {
   const { transactionId } = req.params;
   const result = await OrderService.failOrderIntoDB(transactionId);
@@ -44,7 +45,7 @@ const getAllOrder = catchAsync(async (req, res) => {
   sendResponse.sendCreateDataResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Got All Order succesfully',
+    message: 'Got All Order successfully',
     data: result,
   });
 });
@@ -56,7 +57,19 @@ const updateSingleOrder = catchAsync(async (req, res) => {
   sendResponse.sendCreateDataResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Order Updated succesfully',
+    message: 'Order Updated successfully',
+    data: result,
+  });
+});
+
+const getOrderByUserId = catchAsync(async(req, res)  => {
+  const {id} = req.params;
+
+  const result = await OrderService.getOrdersByUserIdFromDB(id);
+  sendResponse.sendCreateDataResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `Get Orders for ${id} retrieved successfully`,
     data: result,
   });
 });
@@ -67,7 +80,7 @@ const deleteSingleOrder = catchAsync(async (req, res) => {
   sendResponse.sendCreateDataResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Order Deleted succesfully',
+    message: 'Order Deleted successfully',
     data: result,
   });
 });
@@ -134,4 +147,5 @@ export const OrderControllers = {
   successOrder,
   failOrder,
   prescriptionUpload,
+  getOrderByUserId,
 };
