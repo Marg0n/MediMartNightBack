@@ -14,7 +14,7 @@ export interface TUser {
   image?: string;
   address?: string;
   bloodGroup?: string;
-  phone?: number;
+  phone?: string;
 }
 
 export interface UserModel extends Model<TUser> {

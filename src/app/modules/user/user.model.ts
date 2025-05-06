@@ -55,7 +55,7 @@ export const userSchema = new Schema<TUser, UserModel>(
       type: String,
     },
     phone: {
-      type: Number,
+      type: String,
     },
   },
   {
