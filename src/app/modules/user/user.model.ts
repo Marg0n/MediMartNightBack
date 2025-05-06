@@ -48,6 +48,15 @@ export const userSchema = new Schema<TUser, UserModel>(
     image: {
       type: String,
     },
+    address: {
+      type: String,
+    },
+    bloodGroup: {
+      type: String,
+    },
+    phone: {
+      type: Number,
+    },
   },
   {
     timestamps: true,
